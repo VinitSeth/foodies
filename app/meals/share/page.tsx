@@ -1,10 +1,16 @@
+'use client';
+
 import React from 'react';
 import classes from './page.module.css';
 import ImagePicker from '@/components/meals/image-picker';
 import { shareMeal } from '@/lib/actions';
 import MealsFormSubmit from '../../../components/meals/meals-form-submit';
+import { useFormState } from 'react-dom';
 
 const ShareMealPage: React.FC = () => {
+    // Set initial state with a `message` property
+    const [state, formAction] = useFormState(shareMeal, { message: '' });
+
     return (
         <>
             <header className={classes.header}>
@@ -14,7 +20,7 @@ const ShareMealPage: React.FC = () => {
                 <p>Or any other meal you feel needs sharing!</p>
             </header>
             <main className={classes.main}>
-                <form className={classes.form} action={shareMeal} >
+                <form className={classes.form} action={formAction}>
                     <div className={classes.row}>
                         <p>
                             <label htmlFor="name">Your name</label>
@@ -42,15 +48,15 @@ const ShareMealPage: React.FC = () => {
                             required
                         ></textarea>
                     </p>
-                    <ImagePicker label='Your image' name='image' />
+                    <ImagePicker label="Your image" name="image" />
+                    {state.message && <p style={{ textAlign: "center", color: 'red' }}>{state.message}</p>}
                     <p className={classes.actions}>
-                        {/* <button type="submit">Share Meal</button> */}
                         <MealsFormSubmit />
                     </p>
                 </form>
             </main>
         </>
-    )
-}
+    );
+};
 
-export default ShareMealPage
+export default ShareMealPage;

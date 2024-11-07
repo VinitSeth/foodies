@@ -47,6 +47,7 @@ export async function saveMeal(meal: Meal) {
         throw new Error("Saving image failed!");
       }
     });
+    console.log("image was File type!");
   } else {
     // Assume it's a URL
     const extension = meal.image.split(".").pop(); // Get extension from URL
@@ -61,6 +62,7 @@ export async function saveMeal(meal: Meal) {
         throw new Error("Saving image failed!");
       }
     });
+    console.log("image was string type!");
   }
 
   meal.image = `/images/${fileName}`; // Save the image path
